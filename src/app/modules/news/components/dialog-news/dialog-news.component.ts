@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-dialog-news',
@@ -7,8 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DialogNewsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private readonly adapter: DateAdapter<Date>) {
+    this.adapter.setLocale("pt-br");
+  }
 
   ngOnInit(): void { }
-
 }

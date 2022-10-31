@@ -1,16 +1,36 @@
 <h1 mat-dialog-title>Cadastro de Notícia</h1>
 <mat-dialog-content>
-  <!--
-    Titulo
-    SubTitulo
-    Corpo
-    Autor
-    Data
-  -->
   <form>
-    <mat-form-field appearance="fill">
-      <mat-label>Input</mat-label>
+    <!--Título-->
+    <mat-form-field appearance="outline">
+      <mat-label>Título</mat-label>
       <input matInput>
+    </mat-form-field>
+
+    <!--Subtítulo-->
+    <mat-form-field appearance="outline">
+      <mat-label>Subtítulo</mat-label>
+      <input matInput>
+    </mat-form-field>
+
+    <!--Corpo-->
+    <mat-form-field appearance="outline">
+      <mat-label>Corpo</mat-label>
+      <textarea matInput></textarea>
+    </mat-form-field>
+
+    <!--Autor-->
+    <mat-form-field appearance="outline">
+      <mat-label>Autor</mat-label>
+      <input matInput>
+    </mat-form-field>
+
+    <!--Data de Publicação-->
+    <mat-form-field appearance="outline">
+      <mat-label>Data de Publicação</mat-label>
+      <input matInput [matDatepicker]="picker">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
   </form>
 
