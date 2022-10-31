@@ -1,0 +1,26 @@
+<div class="example-container">
+  <mat-toolbar color="primary">
+    <button (click)="snav.toggle()" mat-icon-button class="example-icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>Senac News</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button class="example-icon">
+      <mat-icon>settings</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="example-sidenav-container">
+    <mat-sidenav #snav [mode]="'over'" fixedTopGap="56">
+      <mat-nav-list>
+        <button mat-raised-button color="primary">
+          <a href="/manager">Gerenciar Notícias</a>
+        </button>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      Noticias
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
