@@ -1,34 +1,34 @@
 <h1 mat-dialog-title>Cadastro de Notícia</h1>
 <mat-dialog-content>
-  <form>
+  <form [formGroup]="newsForm">
     <!--Título-->
     <mat-form-field appearance="outline">
       <mat-label>Título</mat-label>
-      <input matInput>
+      <input formControlName="title" matInput>
     </mat-form-field>
 
     <!--Subtítulo-->
     <mat-form-field appearance="outline">
       <mat-label>Subtítulo</mat-label>
-      <input matInput>
+      <input formControlName="caption" matInput>
     </mat-form-field>
 
     <!--Corpo-->
     <mat-form-field appearance="outline">
       <mat-label>Corpo</mat-label>
-      <textarea matInput></textarea>
+      <textarea formControlName="body" matInput></textarea>
     </mat-form-field>
 
     <!--Autor-->
     <mat-form-field appearance="outline">
       <mat-label>Autor</mat-label>
-      <input matInput>
+      <input formControlName="author" matInput>
     </mat-form-field>
 
     <!--Data de Publicação-->
     <mat-form-field appearance="outline">
       <mat-label>Data de Publicação</mat-label>
-      <input matInput [matDatepicker]="picker">
+      <input formControlName="publishDate" matInput [matDatepicker]="picker">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
@@ -36,6 +36,6 @@
 
 </mat-dialog-content>
 <mat-dialog-actions [align]="'end'">
-  <button mat-raised-button color="warn" mat-dialog-close >Cancelar</button>
-  <button mat-raised-button color="primary" [mat-dialog-close]="true">Salvar</button>
+  <button mat-raised-button color="warn" mat-dialog-close>Cancelar</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true" (click)="saveNews()">Salvar</button>
 </mat-dialog-actions>
