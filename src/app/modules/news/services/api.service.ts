@@ -7,24 +7,24 @@ export class ApiService {
 
   constructor() { }
 
-  postNews(news: any) {
+  async postNews(news: any) {
     let newsList: Array<any> = JSON.parse(localStorage.getItem('newsList') || '[]');
     newsList.push(news);
     localStorage.setItem('newsList', JSON.stringify(newsList));
   }
 
-  getNews() {
+  async getNews() {
     let newsList: Array<any> = JSON.parse(localStorage.getItem('newsList') || '[]');
     return newsList;
   }
 
-  putNews(index: number, news: any) {
+  async putNews(index: number, news: any) {
     let newsList: Array<any> = JSON.parse(localStorage.getItem('newsList') || '[]');
     newsList[index] = news;
     localStorage.setItem('newsList', JSON.stringify(newsList));
   }
 
-  deleteNews(index: number) {
+  async deleteNews(index: number) {
     let newsList: Array<any> = JSON.parse(localStorage.getItem('newsList') || '[]');
     newsList.splice(index, 1);
     localStorage.setItem('newsList', JSON.stringify(newsList));

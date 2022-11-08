@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from '../../services/api.service';
 
 @Component({
@@ -14,7 +15,8 @@ export class DialogNewsComponent implements OnInit {
 
   constructor(private readonly adapter: DateAdapter<Date>,
               private formBuilder: FormBuilder,
-              private api: ApiService) {
+              private api: ApiService,
+              private dialogRef: MatDialogRef<DialogNewsComponent>) {
     this.adapter.setLocale("pt-br");
   }
 
@@ -30,7 +32,9 @@ export class DialogNewsComponent implements OnInit {
 
   saveNews() {
     if (this.newsForm.valid) {
-      this.api.postNews(this.newsForm.value);
+      this.api.postNews(this.newsForm.value).then(() => {
+        this.dialogRef.close('save');
+      });
     }
   }
 }

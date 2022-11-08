@@ -13,7 +13,7 @@ import { ApiService } from '../../services/api.service';
 })
 export class ManagerPageComponent implements OnInit {
   public displayedColumns: string[] =
-    ['title', 'caption', 'body', 'author', 'publishDate'];
+    ['title', 'caption', 'body', 'author', 'publishDate', 'action'];
   public dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -29,6 +29,10 @@ export class ManagerPageComponent implements OnInit {
   openDialog() {
     this.dialog.open(DialogNewsComponent, {
       width: '50%'
+    }).afterClosed().subscribe((val) => {
+      if (val === 'save') {
+        this.loadNews();
+      }
     });
   }
 
@@ -42,9 +46,16 @@ export class ManagerPageComponent implements OnInit {
   }
 
   loadNews() {
-    const data: any = this.api.getNews();
-    this.dataSource = new MatTableDataSource(data);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.api.getNews().then((res) => {
+      this.dataSource = new MatTableDataSource(res);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
+  }
+
+  deleteNews(index: number) {
+    this.api.deleteNews(index).then(() => {
+      this.loadNews();
+    })
   }
 }
