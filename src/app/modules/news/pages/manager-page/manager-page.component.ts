@@ -36,6 +36,20 @@ export class ManagerPageComponent implements OnInit {
     });
   }
 
+  openEditDialog(index: number, news: any) {
+    this.dialog.open(DialogNewsComponent, {
+      width: '50%',
+      data: {
+        editNews: news,
+        index: index
+      }
+    }).afterClosed().subscribe((val) => {
+      if (val === 'save') {
+        this.loadNews();
+      }
+    });
+  }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -50,6 +64,8 @@ export class ManagerPageComponent implements OnInit {
       this.dataSource = new MatTableDataSource(res);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+
+      this.paginator._intl.itemsPerPageLabel = 'Notícias por página:';
     });
   }
 
