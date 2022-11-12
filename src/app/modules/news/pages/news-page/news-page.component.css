@@ -25,15 +25,19 @@ mat-nav-list {
   margin: 15px auto;
 }
 
-.column {
-  box-sizing: border-box;
-  width: 50%;
-  height: 700px;
-  float: left;
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
+@media screen and (max-width: 1700px) {
+  .grid-container {
+    grid-template-columns: auto auto;
+  }
 }
 
 @media screen and (max-width: 1200px) {
-  .column {
-    width: 100%;
+  .grid-container {
+    grid-template-columns: auto;
   }
 }

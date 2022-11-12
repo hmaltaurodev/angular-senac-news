@@ -20,8 +20,8 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
-      <div *ngFor="let news of newsList">
-        <div class="column">
+      <div class="grid-container">
+        <div *ngFor="let news of newsList">
           <mat-card class="example-card">
             <mat-card-title>{{news.title}}</mat-card-title>
             <mat-card-subtitle>{{news.caption}}</mat-card-subtitle>
