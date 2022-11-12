@@ -13,7 +13,7 @@ import { ApiService } from '../../services/api.service';
 })
 export class ManagerPageComponent implements OnInit {
   public displayedColumns: string[] =
-    ['title', 'caption', 'body', 'author', 'publishDate', 'action'];
+    ['title', 'caption', 'author', 'publishDate', 'action'];
   public dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

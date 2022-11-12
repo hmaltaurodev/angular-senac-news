@@ -26,6 +26,7 @@ export class DialogNewsComponent implements OnInit {
     this.newsForm = this.formBuilder.group({
       title: ['', Validators.required],
       caption: ['', Validators.required],
+      image: ['', Validators.required],
       body: ['', Validators.required],
       author: ['', Validators.required],
       publishDate: ['', Validators.required]
@@ -35,6 +36,7 @@ export class DialogNewsComponent implements OnInit {
       this.actionBtn = 'Atualizar';
       this.newsForm.controls['title'].setValue(this.data.editNews.title);
       this.newsForm.controls['caption'].setValue(this.data.editNews.caption);
+      this.newsForm.controls['image'].setValue(this.data.editNews.image);
       this.newsForm.controls['body'].setValue(this.data.editNews.body);
       this.newsForm.controls['author'].setValue(this.data.editNews.author);
       this.newsForm.controls['publishDate'].setValue(this.data.editNews.publishDate);

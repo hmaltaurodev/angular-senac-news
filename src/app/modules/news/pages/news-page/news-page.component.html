@@ -20,7 +20,21 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
-      Noticias
+      <div *ngFor="let news of newsList">
+        <div class="column">
+          <mat-card class="example-card">
+            <mat-card-title>{{news.title}}</mat-card-title>
+            <mat-card-subtitle>{{news.caption}}</mat-card-subtitle>
+            <img mat-card-image src="{{news.image}}">
+            <mat-card-content>
+              <p>{{news.body}}</p>
+            </mat-card-content>
+            <mat-card-subtitle>
+              {{news.publishDate | date: 'dd/MM/yyyy'}} - {{news.author}}
+            </mat-card-subtitle>
+          </mat-card>
+        </div>
+      </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

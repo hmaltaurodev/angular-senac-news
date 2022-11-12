@@ -19,3 +19,21 @@
 mat-nav-list {
   padding: 15px;
 }
+
+.example-card {
+  width: 500px;
+  margin: 15px auto;
+}
+
+.column {
+  box-sizing: border-box;
+  width: 50%;
+  height: 700px;
+  float: left;
+}
+
+@media screen and (max-width: 1200px) {
+  .column {
+    width: 100%;
+  }
+}

@@ -22,6 +22,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     FormsModule,
     ReactiveFormsModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatCardModule
   ]
 })
 export class NewsModule { }
