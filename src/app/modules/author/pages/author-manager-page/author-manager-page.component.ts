@@ -3,17 +3,17 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { News } from 'src/app/modules/shared/entities/news';
-import { DialogNewsComponent } from '../../components/dialog-news/dialog-news.component';
+import { Author } from 'src/app/modules/shared/entities/author';
+import { DialogAuthorComponent } from '../../components/dialog-author/dialog-author.component';
 
 @Component({
-  selector: 'app-news-manager-page',
-  templateUrl: './news-manager-page.component.html',
-  styleUrls: ['./news-manager-page.component.css']
+  selector: 'app-author-manager-page',
+  templateUrl: './author-manager-page.component.html',
+  styleUrls: ['./author-manager-page.component.css']
 })
-export class NewsManagerPageComponent implements OnInit {
+export class AuthorManagerPageComponent implements OnInit {
 
-  public displayedColumns: string[] = ['title', 'subTitle', 'author', 'publishDate', 'action'];
+  public displayedColumns: string[] = ['name', 'email', 'action'];
   public dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -22,26 +22,26 @@ export class NewsManagerPageComponent implements OnInit {
   constructor(private dialog: MatDialog) { }
 
   public ngOnInit(): void {
-    this.loadNews();
+    this.loadAuthor();
   }
 
   protected openDialog(): void {
-    this.dialog.open(DialogNewsComponent).afterClosed().subscribe((val) => {
+    this.dialog.open(DialogAuthorComponent).afterClosed().subscribe((val) => {
       if (val === 'save') {
-        this.loadNews();
+        this.loadAuthor();
       }
     });
   }
 
-  protected openEditDialog(index: number, news: News): void {
-    this.dialog.open(DialogNewsComponent, {
+  protected openEditDialog(index: number, author: Author): void {
+    this.dialog.open(DialogAuthorComponent, {
       data: {
-        news: news,
+        author: author,
         index: index
       }
     }).afterClosed().subscribe((val) => {
       if (val === 'save') {
-        this.loadNews();
+        this.loadAuthor();
       }
     });
   }
@@ -55,11 +55,11 @@ export class NewsManagerPageComponent implements OnInit {
     }
   }
 
-  private loadNews(): void {
+  private loadAuthor(): void {
 
   }
 
-  protected deleteNews(index: number): void {
+  protected deleteAuthor(index: number): void {
 
   }
 }

@@ -1,0 +1,16 @@
+mat-form-field {
+  width: 100%;
+}
+
+textarea {
+  height: 150px;
+}
+
+mat-dialog-content {
+  background-color: #f0f0f0
+}
+
+form {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}

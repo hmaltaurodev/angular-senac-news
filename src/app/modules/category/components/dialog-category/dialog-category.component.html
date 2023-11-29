@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Cadastro de Categoria</h1>
+<mat-dialog-content>
+  <form [formGroup]="categoryForm">
+    <!--Nome-->
+    <mat-form-field appearance="outline">
+      <mat-label>Nome</mat-label>
+      <input formControlName="name" matInput>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions [align]="'end'">
+  <button mat-raised-button color="warn" mat-dialog-close>Cancelar</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true" (click)="saveCategory()">{{actionBtn}}</button>
+</mat-dialog-actions>

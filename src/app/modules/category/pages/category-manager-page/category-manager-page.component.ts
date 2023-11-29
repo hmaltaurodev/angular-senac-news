@@ -3,17 +3,17 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { News } from 'src/app/modules/shared/entities/news';
-import { DialogNewsComponent } from '../../components/dialog-news/dialog-news.component';
+import { Category } from 'src/app/modules/shared/entities/category';
+import { DialogCategoryComponent } from '../../components/dialog-category/dialog-category.component';
 
 @Component({
-  selector: 'app-news-manager-page',
-  templateUrl: './news-manager-page.component.html',
-  styleUrls: ['./news-manager-page.component.css']
+  selector: 'app-category-manager-page',
+  templateUrl: './category-manager-page.component.html',
+  styleUrls: ['./category-manager-page.component.css']
 })
-export class NewsManagerPageComponent implements OnInit {
+export class CategoryManagerPageComponent implements OnInit {
 
-  public displayedColumns: string[] = ['title', 'subTitle', 'author', 'publishDate', 'action'];
+  public displayedColumns: string[] = ['name', 'action'];
   public dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -22,26 +22,26 @@ export class NewsManagerPageComponent implements OnInit {
   constructor(private dialog: MatDialog) { }
 
   public ngOnInit(): void {
-    this.loadNews();
+    this.loadCategory();
   }
 
   protected openDialog(): void {
-    this.dialog.open(DialogNewsComponent).afterClosed().subscribe((val) => {
+    this.dialog.open(DialogCategoryComponent).afterClosed().subscribe((val) => {
       if (val === 'save') {
-        this.loadNews();
+        this.loadCategory();
       }
     });
   }
 
-  protected openEditDialog(index: number, news: News): void {
-    this.dialog.open(DialogNewsComponent, {
+  protected openEditDialog(index: number, category: Category): void {
+    this.dialog.open(DialogCategoryComponent, {
       data: {
-        news: news,
+        category: category,
         index: index
       }
     }).afterClosed().subscribe((val) => {
       if (val === 'save') {
-        this.loadNews();
+        this.loadCategory();
       }
     });
   }
@@ -55,11 +55,11 @@ export class NewsManagerPageComponent implements OnInit {
     }
   }
 
-  private loadNews(): void {
+  private loadCategory(): void {
 
   }
 
-  protected deleteNews(index: number): void {
+  protected deleteCategory(index: number): void {
 
   }
 }
