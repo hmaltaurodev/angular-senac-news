@@ -45,7 +45,6 @@ export class DialogCategoryComponent implements OnInit {
 
       this.categoryHttpService.update(json).subscribe({
         next: (command: ICommandResult<Category>) => {
-          this.toast.success('Categoria atualizada com sucesso!');
           this.dialogRef.close('save');
         },
         error: (error: any) => {
@@ -60,7 +59,6 @@ export class DialogCategoryComponent implements OnInit {
 
       this.categoryHttpService.insert(json).subscribe({
         next: (command: ICommandResult<Category>) => {
-          this.toast.success('Categoria salva com sucesso!');
           this.dialogRef.close('save');
         },
         error: (error: any) => {

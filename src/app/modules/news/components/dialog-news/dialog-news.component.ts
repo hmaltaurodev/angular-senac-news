@@ -56,7 +56,6 @@ export class DialogNewsComponent implements OnInit {
 
       this.newsHttpService.update(json).subscribe({
         next: (command: ICommandResult<News>) => {
-          this.toast.success('Notícia atualizada com sucesso!');
           this.dialogRef.close('save');
         },
         error: (error: any) => {
@@ -76,7 +75,6 @@ export class DialogNewsComponent implements OnInit {
 
       this.newsHttpService.insert(json).subscribe({
         next: (command: ICommandResult<News>) => {
-          this.toast.success('Notícia salvar com sucesso!');
           this.dialogRef.close('save');
         },
         error: (error: any) => {

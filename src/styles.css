@@ -2,3 +2,17 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.toast-progress {
+  background-color: #ffffff;
+}
+
+.toast-container .ngx-toastr {
+  margin-bottom: 6px;
+  box-shadow: none;
+}
+
+.toast-container .ngx-toastr:hover {
+  box-shadow: none;
+}

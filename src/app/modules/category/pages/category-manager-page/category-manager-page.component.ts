@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ToastrService } from 'ngx-toastr';
 import { Category } from 'src/app/modules/shared/entities/category';
 import { DialogCategoryComponent } from '../../components/dialog-category/dialog-category.component';
 
@@ -19,7 +20,8 @@ export class CategoryManagerPageComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private toast: ToastrService,
+              private dialog: MatDialog) { }
 
   public ngOnInit(): void {
     this.loadCategory();
@@ -29,6 +31,7 @@ export class CategoryManagerPageComponent implements OnInit {
     this.dialog.open(DialogCategoryComponent).afterClosed().subscribe((val) => {
       if (val === 'save') {
         this.loadCategory();
+        this.toast.success('Categoria salva com sucesso!');
       }
     });
   }
@@ -42,6 +45,7 @@ export class CategoryManagerPageComponent implements OnInit {
     }).afterClosed().subscribe((val) => {
       if (val === 'save') {
         this.loadCategory();
+        this.toast.success('Categoria atualizada com sucesso!');
       }
     });
   }

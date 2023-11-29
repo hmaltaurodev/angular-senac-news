@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ToastrService } from 'ngx-toastr';
 import { Author } from 'src/app/modules/shared/entities/author';
 import { DialogAuthorComponent } from '../../components/dialog-author/dialog-author.component';
 
@@ -19,7 +20,8 @@ export class AuthorManagerPageComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private toast: ToastrService,
+              private dialog: MatDialog) { }
 
   public ngOnInit(): void {
     this.loadAuthor();
@@ -29,6 +31,7 @@ export class AuthorManagerPageComponent implements OnInit {
     this.dialog.open(DialogAuthorComponent).afterClosed().subscribe((val) => {
       if (val === 'save') {
         this.loadAuthor();
+        this.toast.success('Autor salvo com sucesso!');
       }
     });
   }
@@ -42,6 +45,7 @@ export class AuthorManagerPageComponent implements OnInit {
     }).afterClosed().subscribe((val) => {
       if (val === 'save') {
         this.loadAuthor();
+        this.toast.success('Autor atualizado com sucesso!');
       }
     });
   }

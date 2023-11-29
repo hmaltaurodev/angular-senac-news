@@ -48,7 +48,6 @@ export class DialogAuthorComponent implements OnInit {
 
       this.authorHttpService.update(json).subscribe({
         next: (command: ICommandResult<Author>) => {
-          this.toast.success('Autor atualizado com sucesso!');
           this.dialogRef.close('save');
         },
         error: (error: any) => {
@@ -64,7 +63,6 @@ export class DialogAuthorComponent implements OnInit {
 
       this.authorHttpService.insert(json).subscribe({
         next: (command: ICommandResult<Author>) => {
-          this.toast.success('Autor salvo com sucesso!');
           this.dialogRef.close('save');
         },
         error: (error: any) => {

@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ToastrService } from 'ngx-toastr';
 import { News } from 'src/app/modules/shared/entities/news';
 import { DialogNewsComponent } from '../../components/dialog-news/dialog-news.component';
 
@@ -19,7 +20,8 @@ export class NewsManagerPageComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private toast: ToastrService,
+              private dialog: MatDialog) { }
 
   public ngOnInit(): void {
     this.loadNews();
@@ -29,6 +31,7 @@ export class NewsManagerPageComponent implements OnInit {
     this.dialog.open(DialogNewsComponent).afterClosed().subscribe((val) => {
       if (val === 'save') {
         this.loadNews();
+        this.toast.success('Notícia salva com sucesso!');
       }
     });
   }
@@ -42,6 +45,7 @@ export class NewsManagerPageComponent implements OnInit {
     }).afterClosed().subscribe((val) => {
       if (val === 'save') {
         this.loadNews();
+        this.toast.success('Notícia atualizada com sucesso!');
       }
     });
   }
