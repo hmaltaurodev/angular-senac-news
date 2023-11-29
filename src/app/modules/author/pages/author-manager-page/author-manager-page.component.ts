@@ -29,7 +29,7 @@ export class AuthorManagerPageComponent implements OnInit {
 
   protected openDialog(): void {
     this.dialog.open(DialogAuthorComponent).afterClosed().subscribe((val) => {
-      if (val === 'save') {
+      if (val) {
         this.loadAuthor();
         this.toast.success('Autor salvo com sucesso!');
       }
@@ -43,7 +43,7 @@ export class AuthorManagerPageComponent implements OnInit {
         index: index
       }
     }).afterClosed().subscribe((val) => {
-      if (val === 'save') {
+      if (val) {
         this.loadAuthor();
         this.toast.success('Autor atualizado com sucesso!');
       }

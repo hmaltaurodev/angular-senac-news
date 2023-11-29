@@ -29,7 +29,7 @@ export class NewsManagerPageComponent implements OnInit {
 
   protected openDialog(): void {
     this.dialog.open(DialogNewsComponent).afterClosed().subscribe((val) => {
-      if (val === 'save') {
+      if (val) {
         this.loadNews();
         this.toast.success('Notícia salva com sucesso!');
       }
@@ -43,7 +43,7 @@ export class NewsManagerPageComponent implements OnInit {
         index: index
       }
     }).afterClosed().subscribe((val) => {
-      if (val === 'save') {
+      if (val) {
         this.loadNews();
         this.toast.success('Notícia atualizada com sucesso!');
       }

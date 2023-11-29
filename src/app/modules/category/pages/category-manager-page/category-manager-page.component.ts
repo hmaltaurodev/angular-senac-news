@@ -29,7 +29,7 @@ export class CategoryManagerPageComponent implements OnInit {
 
   protected openDialog(): void {
     this.dialog.open(DialogCategoryComponent).afterClosed().subscribe((val) => {
-      if (val === 'save') {
+      if (val) {
         this.loadCategory();
         this.toast.success('Categoria salva com sucesso!');
       }
@@ -43,7 +43,7 @@ export class CategoryManagerPageComponent implements OnInit {
         index: index
       }
     }).afterClosed().subscribe((val) => {
-      if (val === 'save') {
+      if (val) {
         this.loadCategory();
         this.toast.success('Categoria atualizada com sucesso!');
       }
