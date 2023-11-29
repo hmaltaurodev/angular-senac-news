@@ -10,13 +10,13 @@
     <!--Subtítulo-->
     <mat-form-field appearance="outline">
       <mat-label>Subtítulo</mat-label>
-      <input formControlName="caption" matInput>
+      <input formControlName="subTitle" matInput>
     </mat-form-field>
 
     <!--Imagem-->
     <mat-form-field appearance="outline">
       <mat-label>Imagem</mat-label>
-      <input formControlName="image" matInput>
+      <input formControlName="imageUrl" matInput>
     </mat-form-field>
 
     <!--Corpo-->
@@ -24,22 +24,7 @@
       <mat-label>Corpo</mat-label>
       <textarea formControlName="body" matInput></textarea>
     </mat-form-field>
-
-    <!--Autor-->
-    <mat-form-field appearance="outline">
-      <mat-label>Autor</mat-label>
-      <input formControlName="author" matInput>
-    </mat-form-field>
-
-    <!--Data de Publicação-->
-    <mat-form-field appearance="outline">
-      <mat-label>Data de Publicação</mat-label>
-      <input formControlName="publishDate" matInput [matDatepicker]="picker">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
   </form>
-
 </mat-dialog-content>
 <mat-dialog-actions [align]="'end'">
   <button mat-raised-button color="warn" mat-dialog-close>Cancelar</button>

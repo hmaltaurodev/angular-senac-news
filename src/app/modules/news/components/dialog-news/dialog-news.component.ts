@@ -1,8 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DateAdapter } from '@angular/material/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ApiService } from '../../services/api.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
+import { News } from 'src/app/modules/shared/entities/news';
+import { ICommandResult } from 'src/app/modules/shared/interfaces/i-command-result';
+import { IEditNews } from 'src/app/modules/shared/interfaces/i-edit-news';
+import { NewsHttpService } from 'src/app/modules/shared/services/news-http.service';
 
 @Component({
   selector: 'app-dialog-news',
@@ -11,58 +14,75 @@ import { ApiService } from '../../services/api.service';
 })
 export class DialogNewsComponent implements OnInit {
 
-  public newsForm!: FormGroup;
-  public actionBtn: string = 'Salvar';
+  protected newsForm: FormGroup = new FormBuilder().group({
+    title: ['', Validators.required],
+    subTitle: ['', Validators.required],
+    imageUrl: ['', Validators.required],
+    body: ['', Validators.required]
+  });
 
-  constructor(private readonly adapter: DateAdapter<Date>,
-              private formBuilder: FormBuilder,
-              private api: ApiService,
+  protected actionBtn: string = 'Salvar';
+
+  constructor(private toast: ToastrService,
+              private newsHttpService: NewsHttpService,
               private dialogRef: MatDialogRef<DialogNewsComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.adapter.setLocale("pt-br");
-  }
+              @Inject(MAT_DIALOG_DATA) public data: IEditNews) { }
 
-  ngOnInit(): void {
-    this.newsForm = this.formBuilder.group({
-      title: ['', Validators.required],
-      caption: ['', Validators.required],
-      image: ['', Validators.required],
-      body: ['', Validators.required],
-      author: ['', Validators.required],
-      publishDate: ['', Validators.required]
-    });
-
-    if (this.data?.editNews) {
+  public ngOnInit(): void {
+    if (this.data?.news) {
       this.actionBtn = 'Atualizar';
-      this.newsForm.controls['title'].setValue(this.data.editNews.title);
-      this.newsForm.controls['caption'].setValue(this.data.editNews.caption);
-      this.newsForm.controls['image'].setValue(this.data.editNews.image);
-      this.newsForm.controls['body'].setValue(this.data.editNews.body);
-      this.newsForm.controls['author'].setValue(this.data.editNews.author);
-      this.newsForm.controls['publishDate'].setValue(this.data.editNews.publishDate);
+      this.newsForm.controls['title'].setValue(this.data.news.title);
+      this.newsForm.controls['subTitle'].setValue(this.data.news.subTitle);
+      this.newsForm.controls['imageUrl'].setValue(this.data.news.imageUrl);
+      this.newsForm.controls['body'].setValue(this.data.news.body);
     }
   }
 
-  saveNews() {
+  protected saveNews(): void {
     if (this.newsForm.valid) {
-      if (this.data?.editNews) {
-        this.updateNews();
-      }
-      else {
-        this.addNews();
-      }
+      return;
     }
-  }
 
-  addNews() {
-    this.api.postNews(this.newsForm.value).then(() => {
-      this.dialogRef.close('save');
-    });
-  }
+    if (this.data?.news) {
+      const json: string = JSON.stringify({
+        id: this.data.news.id,
+        title: this.newsForm.controls['title'].value,
+        subTitle: this.newsForm.controls['subTitle'].value,
+        imageUrl: this.newsForm.controls['imageUrl'].value,
+        body: this.newsForm.controls['body'].value,
+        categoryId: '102ae4a9-9ab5-4788-79bb-08dbefa7a4c4',
+        authorId: 'd33c948b-4b3d-4aee-9db0-08dbefa6be5d'
+      });
 
-  updateNews() {
-    this.api.putNews(this.data.index, this.newsForm.value).then(() => {
-      this.dialogRef.close('save');
-    });
+      this.newsHttpService.update(json).subscribe({
+        next: (command: ICommandResult<News>) => {
+          this.toast.success('Notícia atualizada com sucesso!');
+          this.dialogRef.close('save');
+        },
+        error: (error: any) => {
+          this.toast.error('Não foi possível atualizar a notícia. Por favor tente novamente ou entre em contato com um administrador!');
+        }
+      });
+    }
+    else {
+      const json: string = JSON.stringify({
+        title: this.newsForm.controls['title'].value,
+        subTitle: this.newsForm.controls['subTitle'].value,
+        imageUrl: this.newsForm.controls['imageUrl'].value,
+        body: this.newsForm.controls['body'].value,
+        categoryId: '102ae4a9-9ab5-4788-79bb-08dbefa7a4c4',
+        authorId: 'd33c948b-4b3d-4aee-9db0-08dbefa6be5d'
+      });
+
+      this.newsHttpService.insert(json).subscribe({
+        next: (command: ICommandResult<News>) => {
+          this.toast.success('Notícia salvar com sucesso!');
+          this.dialogRef.close('save');
+        },
+        error: (error: any) => {
+          this.toast.error('Não foi possível salvar a notícia. Por favor tente novamente ou entre em contato com um administrador!');
+        }
+      });
+    }
   }
 }

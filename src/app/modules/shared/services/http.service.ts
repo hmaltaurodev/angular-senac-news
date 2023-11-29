@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class HttpService {
 
-  private apiUrl: string = '';
+  private apiUrl: string = 'https://localhost:7280/api';
   private headers: HttpHeaders = new HttpHeaders({
     'Content-Type': 'application/json'
   });

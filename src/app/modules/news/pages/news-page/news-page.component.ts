@@ -1,4 +1,3 @@
-import { ApiService } from './../../services/api.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -10,16 +9,13 @@ export class NewsPageComponent implements OnInit {
 
   public newsList: any[] = [];
 
-  constructor(private api: ApiService) { }
+  constructor() { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.loadNews();
   }
 
-  loadNews() {
-    this.api.getNews().then((res) => {
-      this.newsList = res;
-      console.log(this.newsList);
-    });
+  private loadNews(): void {
+
   }
 }

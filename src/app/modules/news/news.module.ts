@@ -7,7 +7,7 @@ import { DialogNewsComponent } from './components/dialog-news/dialog-news.compon
 
 //Pages
 import { NewsPageComponent } from './pages/news-page/news-page.component';
-import { ManagerPageComponent } from './pages/manager-page/manager-page.component';
+import { NewsManagerPageComponent } from './pages/news-manager-page/news-manager-page.component';
 
 //Angular Material
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -23,11 +23,12 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCardModule } from '@angular/material/card';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
     NewsPageComponent,
-    ManagerPageComponent,
+    NewsManagerPageComponent,
     DialogNewsComponent
   ],
   imports: [
@@ -46,7 +47,8 @@ import { MatCardModule } from '@angular/material/card';
     ReactiveFormsModule,
     MatTableModule,
     MatPaginatorModule,
-    MatCardModule
+    MatCardModule,
+    SharedModule
   ]
 })
 export class NewsModule { }
