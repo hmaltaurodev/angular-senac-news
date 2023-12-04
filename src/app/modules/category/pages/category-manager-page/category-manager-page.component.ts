@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { Category } from 'src/app/modules/shared/entities/category';
+import { CategoryHttpService } from 'src/app/modules/shared/services/category-http.service';
 import { DialogCategoryComponent } from '../../components/dialog-category/dialog-category.component';
 
 @Component({
@@ -21,7 +22,8 @@ export class CategoryManagerPageComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private toast: ToastrService,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog,
+              private categoryHttpService: CategoryHttpService) { }
 
   public ngOnInit(): void {
     this.loadCategory();
@@ -36,12 +38,9 @@ export class CategoryManagerPageComponent implements OnInit {
     });
   }
 
-  protected openEditDialog(index: number, category: Category): void {
+  protected openEditDialog(category: Category): void {
     this.dialog.open(DialogCategoryComponent, {
-      data: {
-        category: category,
-        index: index
-      }
+      data: category
     }).afterClosed().subscribe((val) => {
       if (val) {
         this.loadCategory();
@@ -60,10 +59,29 @@ export class CategoryManagerPageComponent implements OnInit {
   }
 
   private loadCategory(): void {
+    this.categoryHttpService.getAll().subscribe({
+      next: (categories: Array<Category>) => {
+        this.dataSource = new MatTableDataSource(categories);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
 
+        this.paginator._intl.itemsPerPageLabel = 'Categorias por página';
+      },
+      error: () => {
+        this.toast.error('Não foi possível carregar a lista de categorias!');
+      }
+    });
   }
 
-  protected deleteCategory(index: number): void {
-
+  protected deleteCategory(id: string): void {
+    this.categoryHttpService.delete(id).subscribe({
+      next: () => {
+        this.toast.success('Categoria deletada com sucesso!');
+        this.loadCategory();
+      },
+      error: () => {
+        this.toast.error('Não foi possível deletar a categoria!');
+      }
+    });
   }
 }

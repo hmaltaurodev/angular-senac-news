@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { Author } from 'src/app/modules/shared/entities/author';
 import { DialogAuthorComponent } from '../../components/dialog-author/dialog-author.component';
+import { AuthorHttpService } from 'src/app/modules/shared/services/author-http.service';
 
 @Component({
   selector: 'app-author-manager-page',
@@ -21,7 +22,8 @@ export class AuthorManagerPageComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private toast: ToastrService,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog,
+              private authorHttpService: AuthorHttpService) { }
 
   public ngOnInit(): void {
     this.loadAuthor();
@@ -36,12 +38,9 @@ export class AuthorManagerPageComponent implements OnInit {
     });
   }
 
-  protected openEditDialog(index: number, author: Author): void {
+  protected openEditDialog(author: Author): void {
     this.dialog.open(DialogAuthorComponent, {
-      data: {
-        author: author,
-        index: index
-      }
+      data: author
     }).afterClosed().subscribe((val) => {
       if (val) {
         this.loadAuthor();
@@ -60,10 +59,29 @@ export class AuthorManagerPageComponent implements OnInit {
   }
 
   private loadAuthor(): void {
+    this.authorHttpService.getAll().subscribe({
+      next: (authors: Array<Author>) => {
+        this.dataSource = new MatTableDataSource(authors);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
 
+        this.paginator._intl.itemsPerPageLabel = 'Autores por página';
+      },
+      error: () => {
+        this.toast.error('Não foi possível carregar a lista de autores!');
+      }
+    });
   }
 
-  protected deleteAuthor(index: number): void {
-
+  protected deleteAuthor(id: string): void {
+    this.authorHttpService.delete(id).subscribe({
+      next: () => {
+        this.toast.success('Autor deletado com sucesso!');
+        this.loadAuthor();
+      },
+      error: () => {
+        this.toast.error('Não foi possível deletar o autor!');
+      }
+    });
   }
 }

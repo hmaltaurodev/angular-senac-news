@@ -9,27 +9,27 @@ import { HttpService } from './http.service';
 })
 export class AuthorHttpService {
 
-  constructor(private http: HttpService) {
-    http.endpoint = 'Author';
-  }
+  private endpoint: string = 'Author';
+
+  constructor(private http: HttpService) { }
 
   public getAll(): Observable<Array<Author>> {
-    return this.http.getAll<Array<Author>>();
+    return this.http.getAll<Array<Author>>(this.endpoint);
   }
 
   public get(id: string): Observable<Author> {
-    return this.http.get<Author>(id);
+    return this.http.get<Author>(this.endpoint, id);
   }
 
   public insert(body: string): Observable<ICommandResult<Author>> {
-    return this.http.post<ICommandResult<Author>>(body);
+    return this.http.post<ICommandResult<Author>>(this.endpoint, body);
   }
 
   public update(body: string): Observable<ICommandResult<Author>> {
-    return this.http.put<ICommandResult<Author>>(body);
+    return this.http.put<ICommandResult<Author>>(this.endpoint, body);
   }
 
   public delete(id: string): Observable<ICommandResult<Author>> {
-    return this.http.delete<ICommandResult<Author>>(id);
+    return this.http.delete<ICommandResult<Author>>(this.endpoint, id);
   }
 }

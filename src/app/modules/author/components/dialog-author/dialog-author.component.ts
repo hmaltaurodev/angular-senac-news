@@ -4,7 +4,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { Author } from 'src/app/modules/shared/entities/author';
 import { ICommandResult } from 'src/app/modules/shared/interfaces/i-command-result';
-import { IEditAuthor } from 'src/app/modules/shared/interfaces/i-edit-author';
 import { AuthorHttpService } from 'src/app/modules/shared/services/author-http.service';
 
 @Component({
@@ -24,24 +23,24 @@ export class DialogAuthorComponent implements OnInit {
   constructor(private toast: ToastrService,
               private authorHttpService: AuthorHttpService,
               private dialogRef: MatDialogRef<DialogAuthorComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: IEditAuthor) { }
+              @Inject(MAT_DIALOG_DATA) public data: Author) { }
 
   public ngOnInit(): void {
-    if (this.data?.author) {
+    if (this.data) {
       this.actionBtn = 'Atualizar';
-      this.authorForm.controls['name'].setValue(this.data.author.name);
-      this.authorForm.controls['email'].setValue(this.data.author.email);
+      this.authorForm.controls['name'].setValue(this.data.name);
+      this.authorForm.controls['email'].setValue(this.data.email);
     }
   }
 
   protected saveAuthor(): void {
-    if (this.authorForm.valid) {
+    if (!this.authorForm.valid) {
       return;
     }
 
-    if (this.data?.author) {
+    if (this.data) {
       const json: string = JSON.stringify({
-        id: this.data.author.id,
+        id: this.data.id,
         name: this.authorForm.controls['name'].value,
         email: this.authorForm.controls['email'].value
       });
@@ -51,7 +50,7 @@ export class DialogAuthorComponent implements OnInit {
           this.dialogRef.close('save');
         },
         error: (error: any) => {
-          this.toast.error('Não foi possível atualizar o autor. Por favor tente novamente ou entre em contato com um administrador!');
+          this.toast.error('Não foi possível atualizar o autor!');
         }
       });
     }
@@ -66,7 +65,7 @@ export class DialogAuthorComponent implements OnInit {
           this.dialogRef.close('save');
         },
         error: (error: any) => {
-          this.toast.error('Não foi possível salvar o autor. Por favor tente novamente ou entre em contato com um administrador!');
+          this.toast.error('Não foi possível salvar o autor!');
         }
       });
     }

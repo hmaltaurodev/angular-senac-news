@@ -4,7 +4,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { Category } from 'src/app/modules/shared/entities/category';
 import { ICommandResult } from 'src/app/modules/shared/interfaces/i-command-result';
-import { IEditCategory } from 'src/app/modules/shared/interfaces/i-edit-category';
 import { CategoryHttpService } from 'src/app/modules/shared/services/category-http.service';
 
 @Component({
@@ -23,23 +22,23 @@ export class DialogCategoryComponent implements OnInit {
   constructor(private toast: ToastrService,
               private categoryHttpService: CategoryHttpService,
               private dialogRef: MatDialogRef<DialogCategoryComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: IEditCategory) { }
+              @Inject(MAT_DIALOG_DATA) public data: Category) { }
 
   public ngOnInit(): void {
-    if (this.data?.category) {
+    if (this.data) {
       this.actionBtn = 'Atualizar';
-      this.categoryForm.controls['name'].setValue(this.data.category.name);
+      this.categoryForm.controls['name'].setValue(this.data.name);
     }
   }
 
   protected saveCategory(): void {
-    if (this.categoryForm.valid) {
+    if (!this.categoryForm.valid) {
       return;
     }
 
-    if (this.data?.category) {
+    if (this.data) {
       const json: string = JSON.stringify({
-        id: this.data.category.id,
+        id: this.data.id,
         name: this.categoryForm.controls['name'].value
       });
 
@@ -48,7 +47,7 @@ export class DialogCategoryComponent implements OnInit {
           this.dialogRef.close('save');
         },
         error: (error: any) => {
-          this.toast.error('Não foi possível atualizar a categoria. Por favor tente novamente ou entre em contato com um administrador!');
+          this.toast.error('Não foi possível atualizar a categoria!');
         }
       });
     }
@@ -62,7 +61,7 @@ export class DialogCategoryComponent implements OnInit {
           this.dialogRef.close('save');
         },
         error: (error: any) => {
-          this.toast.error('Não foi possível salvar a categoria. Por favor tente novamente ou entre em contato com um administrador!');
+          this.toast.error('Não foi possível salvar a categoria!');
         }
       });
     }

@@ -24,6 +24,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCardModule } from '@angular/material/card';
 import { SharedModule } from '../shared/shared.module';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { SharedModule } from '../shared/shared.module';
     MatTableModule,
     MatPaginatorModule,
     MatCardModule,
-    SharedModule
+    SharedModule,
+    MatSelectModule
   ]
 })
 export class NewsModule { }

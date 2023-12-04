@@ -13,32 +13,30 @@ export class HttpService {
   });
   private options = { headers: this.headers };
 
-  public endpoint: string;
-
   constructor(private http: HttpClient) { }
 
-  public getAll<T>(): Observable<T> {
-    const url: string = `${this.apiUrl}/${this.endpoint}/List`;
+  public getAll<T>(endpoint: string): Observable<T> {
+    const url: string = `${this.apiUrl}/${endpoint}/List`;
     return this.http.get<T>(url, this.options);
   }
 
-  public get<T>(id: string): Observable<T> {
-    const url: string = `${this.apiUrl}/${this.endpoint}/${id}`;
+  public get<T>(endpoint: string, id: string): Observable<T> {
+    const url: string = `${this.apiUrl}/${endpoint}/${id}`;
     return this.http.get<T>(url, this.options);
   }
 
-  public delete<T>(id: string): Observable<T> {
-    const url: string = `${this.apiUrl}/${this.endpoint}/${id}`;
+  public delete<T>(endpoint: string, id: string): Observable<T> {
+    const url: string = `${this.apiUrl}/${endpoint}/${id}`;
     return this.http.delete<T>(url, this.options);
   }
 
-  public post<T>(body: string): Observable<T> {
-    const url: string = `${this.apiUrl}/${this.endpoint}/Add`;
+  public post<T>(endpoint: string, body: string): Observable<T> {
+    const url: string = `${this.apiUrl}/${endpoint}/Add`;
     return this.http.post<T>(url, body, this.options);
   }
 
-  public put<T>(body: string): Observable<T> {
-    const url: string = `${this.apiUrl}/${this.endpoint}/Update`;
+  public put<T>(endpoint: string, body: string): Observable<T> {
+    const url: string = `${this.apiUrl}/${endpoint}/Update`;
     return this.http.put<T>(url, body, this.options);
   }
 }
